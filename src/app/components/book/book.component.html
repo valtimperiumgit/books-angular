@@ -1,0 +1,11 @@
+<div class="bg-white rounded-lg overflow-hidden shadow-md">
+    <div class="p-4">
+        <div class="p-4 mb-4">
+            <h2 class="text-1xl font-bold mb-4">{{ name }}</h2>
+            <p class="mb-2">Publication Date: {{ publicationDate | date: 'yyyy-MM-dd' }}</p>
+            <p class="mb-2">Description: {{ description }}</p>
+            <p class="mb-2">Number of Pages: {{ numberPages }}</p>
+
+            <button class="mx-1 px-2 py-1 rounded-md bg-blue-200 hover:bg-gray-300 focus:outline-none focus:bg-gray-300" (click)="editFunc(id)">Edit</button>
+    </div>
+</div>

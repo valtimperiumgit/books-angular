@@ -1,0 +1,59 @@
+
+<div class="mx-4 mt-10">
+  <div class="flex justify-between items-center mb-4">
+
+    <button class="mx-1 px-2 py-1 rounded-md bg-blue-200 hover:bg-gray-300 focus:outline-none focus:bg-gray-300" (click)="openAddBookModal()">Add Book</button>
+
+    <div class="flex items-center">
+      <label for="search">Search:</label>
+      <input type="text" [(ngModel)]="searchTerm" (input)="searchBooks()" id="search" class="ml-2 px-2 py-1 rounded-md border-gray-400 focus:outline-none focus:border-blue-500">
+    </div>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Enter a to date</mat-label>
+      <mat-date-range-input [rangePicker]="pickerTo">
+        <input matStartDate placeholder="Start date" [(ngModel)]="fromDate">
+        <input matEndDate placeholder="End date" [(ngModel)]="toDate">
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="pickerTo"></mat-datepicker-toggle>
+      <mat-date-range-picker #pickerTo></mat-date-range-picker>
+    </mat-form-field>    
+
+    <mat-form-field appearance="fill">
+      <mat-label>Select date range:</mat-label>
+      <mat-select [(ngModel)]="dateRange" (selectionChange)="onDateRangeSelection()">
+        <mat-option value="month">За цей місяць</mat-option>
+        <mat-option value="year">За цей рік</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button (click)="filterByDate()" class="mx-1 px-2 py-1 rounded-md bg-blue-200 hover:bg-gray-300 focus:outline-none focus:bg-gray-300">Filter</button>
+
+    <div>
+      <button (click)="sortBooks(sortBy.Name)" class="mx-1 px-2 py-1 rounded-md bg-blue-200 hover:bg-gray-300 focus:outline-none focus:bg-gray-300">Sort by Name</button>
+      <button (click)="sortBooks(sortBy.PublicationDate)" class="mx-1 px-2 py-1 rounded-md bg-blue-200 hover:bg-gray-300 focus:outline-none focus:bg-gray-300">Sort by Publication Date</button>
+      <button (click)="sortBooks(sortBy.NumberPages)" class="mx-1 px-2 py-1 rounded-md bg-blue-200 hover:bg-gray-300 focus:outline-none focus:bg-gray-300">Sort by Number of Pages</button>
+    </div>
+
+  </div>
+  <div class="grid grid-cols-3 gap-4 pr-20 pl-20">
+    <div *ngFor="let book of filteredBooks" [ngClass]="{'active': book === activeRecord}" (click)="onRecordClick(book)">
+      <div class="p-4 rounded-md">
+        <book
+        [id]="book.id"
+        [name]="book.name"
+        [publicationDate]="book.publicationDate"
+        [description]="book.description"
+        [numberPages]="book.numberPages"
+        [editFunc]="openEditBookModal.bind(this, book.id)"
+      ></book>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <h2>Date Chart</h2>
+    <canvas id="barchart"></canvas>
+</div>
+</div>
