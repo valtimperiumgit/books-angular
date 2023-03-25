@@ -61,9 +61,7 @@ export class BooksListComponent implements OnInit {
           bookCountByYear[year] = (bookCountByYear[year] || 0) + 1;
         }
   
-        // Convert book count by year to arrays for chart rendering
         this.labeldata = Object.keys(bookCountByYear);
-        console.log(bookCountByYear)
         this.realdata = Object.values(bookCountByYear);
         this.colordata = this.generateColors(this.labeldata.length);
 
@@ -141,10 +139,6 @@ export class BooksListComponent implements OnInit {
   }
 
   renderChart(labeldata:any, maindata:any, colordata:any, type:any, id:any) {
-    console.log(labeldata)
-
-    console.log(maindata)
-    console.log(colordata)
 
     const myChart = new Chart(id, {
       type: type,
